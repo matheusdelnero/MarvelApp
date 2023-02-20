@@ -32,7 +32,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
             1,
             "Homem de Ferro",
             "player numero 1 de vava",
-            R.drawable.char3
+            R.drawable.char1
         )
         charList.add(char1)
 
