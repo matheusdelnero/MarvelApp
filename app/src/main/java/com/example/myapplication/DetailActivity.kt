@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.myapplication.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -20,7 +21,12 @@ class DetailActivity : AppCompatActivity() {
             binding.detailsImageView.setImageResource(char.imageUrl)
             binding.detailsTextView1.text = char.name
             binding.detailsTextView2.text = char.description
+            binding.favoriteButton.setOnClickListener{favoriteList.add(char)}
         }
+
+
+
+
     }
 
     private fun charFomID(charID: Int): Character? {

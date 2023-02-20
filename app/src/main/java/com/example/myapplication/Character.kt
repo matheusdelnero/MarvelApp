@@ -2,6 +2,8 @@ package com.example.myapplication
 
 var charList = mutableListOf<Character>()
 
+var favoriteList = mutableListOf<Character>()
+
 val CHAR_ID_EXTRA = "charExtra"
 
 data class Character (

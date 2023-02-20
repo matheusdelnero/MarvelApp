@@ -30,9 +30,9 @@ class HomeFragment : Fragment(), CharacterClickListener {
     private fun populateCharacters() {
         val char1 = Character(
             1,
-            "Aspas Final Boss",
+            "Homem de Ferro",
             "player numero 1 de vava",
-            R.drawable.char1
+            R.drawable.char3
         )
         charList.add(char1)
 
@@ -40,7 +40,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
             2,
             "Aspas Final Boss",
             "player numero 1 de vava",
-            R.drawable.char2,
+            R.drawable.char3,
 
             )
         charList.add(char2)
@@ -58,7 +58,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
             3,
             "Aspas Final Boss",
             "player numero 1 de vava",
-            R.drawable.char2
+            R.drawable.char3
         )
         charList.add(char4)
 
@@ -66,7 +66,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
             3,
             "Aspas Final Boss",
             "player numero 1 de vava",
-            R.drawable.char5,
+            R.drawable.char3,
         )
         charList.add(char5)
         charList.add(char1)
