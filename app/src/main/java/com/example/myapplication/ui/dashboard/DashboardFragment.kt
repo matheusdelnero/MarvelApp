@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -31,6 +33,14 @@ class DashboardFragment : Fragment() {
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+
+        favoriteList.add(Character(1,"renata","ola", R.drawable.char3))
+        val meuContexto = this.context
+        val home = this
+        binding.favoriteRecycler.apply {
+            layoutManager = GridLayoutManager(meuContexto,1)
+            adapter = FavoriteAdapter(favoriteList)
         }
         return root
     }
