@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,12 +38,14 @@ class DashboardFragment : Fragment(), CharacterClickListener {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //val textView: TextView = binding.textDashboard
+        val textView: TextView = binding.textDashboard
         //dashboardViewModel.text.observe(viewLifecycleOwner) {
         //    textView.text = it
         //}
 
-        favoriteList.add(Character(1,"renata","ola", R.drawable.char3))
+        val text = "Você não tem nenhum favorito adiconado."
+        if (favoriteList.isEmpty()){textView.text = text}
+        //favoriteList.add(Character(1,"renata","ola", R.drawable.char3))
         val meuContexto = this.context
         val home = this
         binding.favoriteRecycler.apply {
@@ -50,6 +53,8 @@ class DashboardFragment : Fragment(), CharacterClickListener {
             adapter = CardAdapter(favoriteList,home )
         }
         return root
+
+
     }
 
     override fun onDestroyView() {
