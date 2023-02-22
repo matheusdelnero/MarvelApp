@@ -12,24 +12,25 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_detail)
+        setContentView(binding.root)
 
         val charID = intent.getIntExtra(CHAR_ID_EXTRA, -1)
-        val char = charFomID(charID)
+        val char = charFromID(charID)
         if (char != null)
         {
             binding.detailsImageView.setImageResource(char.imageUrl)
             binding.detailsTextView1.text = char.name
             binding.detailsTextView2.text = char.description
-            binding.favoriteButton.setOnClickListener{favoriteList.add(char)}
+            binding.favoriteButton.setOnClickListener{
+                favoriteList.add(char)
+                Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
+            }
         }
-
-
-
 
     }
 
-    private fun charFomID(charID: Int): Character? {
+
+    private fun charFromID(charID: Int): Character? {
         for (char in charList) {
             if (char.id == charID)
                 return char
