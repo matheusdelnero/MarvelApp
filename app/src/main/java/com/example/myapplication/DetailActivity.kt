@@ -21,10 +21,16 @@ class DetailActivity : AppCompatActivity() {
             binding.detailsImageView.setImageResource(char.imageUrl)
             binding.detailsTextView1.text = char.name
             binding.detailsTextView2.text = char.description
-            binding.favoriteButton.setOnClickListener{
-                favoriteList.add(char)
-                Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
+            binding.favoriteButton.setOnCheckedChangeListener { checkbox, isChecked ->
+                if (isChecked) {
+                    favoriteList.add(char)
+                    Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this,"Personagem removido dos Favoritos.",Toast.LENGTH_SHORT).show()
+                    favoriteList.remove(char)
+                }
             }
+
         }
 
     }

@@ -34,20 +34,19 @@ class DashboardFragment : Fragment(), CharacterClickListener {
     ): View {
         val dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         val textView: TextView = binding.textDashboard
+        val meuContexto = this.context
+        val home = this
         //dashboardViewModel.text.observe(viewLifecycleOwner) {
         //    textView.text = it
         //}
 
-        val text = "Você não tem nenhum favorito adiconado."
-        if (favoriteList.isEmpty()){textView.text = text}
+
+        if (favoriteList.isEmpty()){textView.text = "Você não tem nenhum favorito adiconado."}
         //favoriteList.add(Character(1,"renata","ola", R.drawable.char3))
-        val meuContexto = this.context
-        val home = this
+
         binding.favoriteRecycler.apply {
             layoutManager = GridLayoutManager(meuContexto,1)
             adapter = CardAdapter(favoriteList,home )
