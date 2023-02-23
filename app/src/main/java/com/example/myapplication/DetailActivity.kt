@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.myapplication.databinding.ActivityDetailBinding
 
@@ -21,15 +22,24 @@ class DetailActivity : AppCompatActivity() {
             binding.detailsImageView.setImageResource(char.imageUrl)
             binding.detailsTextView1.text = char.name
             binding.detailsTextView2.text = char.description
-            binding.favoriteButton.setOnCheckedChangeListener { checkbox, isChecked ->
-                if (isChecked) {
-                    favoriteList.add(char)
-                    Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this,"Personagem removido dos Favoritos.",Toast.LENGTH_SHORT).show()
-                    favoriteList.remove(char)
-                }
+            binding.favoriteButton.setOnClickListener {
+                favoriteList.add(char)
+                Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
+                binding.favoriteButton.visibility = View.GONE
+
             }
+
+
+
+            //binding.favoriteButton.setOnCheckedChangeListener { checkbox, isChecked ->
+            //    if (isChecked) {
+            //        favoriteList.add(char)
+            //        Toast.makeText(this,"Personagem adicionado aos Favoritos.",Toast.LENGTH_SHORT).show()
+            //    } else {
+            //        Toast.makeText(this,"Personagem removido dos Favoritos.",Toast.LENGTH_SHORT).show()
+            //        favoriteList.remove(char)
+            //    }
+            //}
 
         }
 

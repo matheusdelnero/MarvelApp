@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentDashboardBinding
 
-class DashboardFragment : Fragment(), CharacterClickListener {
+class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 
@@ -22,11 +21,6 @@ class DashboardFragment : Fragment(), CharacterClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onClick(character: Character) {
-        val intent = Intent(context,DetailActivity::class.java)
-        intent.putExtra(CHAR_ID_EXTRA,character.id)
-        startActivity(intent)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,18 +33,18 @@ class DashboardFragment : Fragment(), CharacterClickListener {
         val root: View = binding.root
         val textView: TextView = binding.textDashboard
         val meuContexto = this.context
-        val home = this
         //dashboardViewModel.text.observe(viewLifecycleOwner) {
         //    textView.text = it
         //}
 
 
-        if (favoriteList.isEmpty()){textView.text = "Você não tem nenhum favorito adiconado."}
+
+        if (favoriteList.isEmpty()){textView.text = "Você não tem nenhum favorito adicionado."}
         //favoriteList.add(Character(1,"renata","ola", R.drawable.char3))
 
         binding.favoriteRecycler.apply {
             layoutManager = GridLayoutManager(meuContexto,1)
-            adapter = CardAdapter(favoriteList,home )
+            adapter = CardAdapterDetails(favoriteList)
         }
 
         val swipeToDeleteCallBack = object : SwipeToDeleteCallBack(){
