@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentDashboardBinding
 
@@ -51,6 +52,18 @@ class DashboardFragment : Fragment(), CharacterClickListener {
             layoutManager = GridLayoutManager(meuContexto,1)
             adapter = CardAdapter(favoriteList,home )
         }
+
+        val swipeToDeleteCallBack = object : SwipeToDeleteCallBack(){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                favoriteList.removeAt(position)
+                binding.favoriteRecycler.adapter?.notifyItemRemoved(position)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler)
+
         return root
 
 
