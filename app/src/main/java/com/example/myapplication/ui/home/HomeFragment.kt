@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
@@ -75,16 +76,20 @@ class HomeFragment : Fragment(), CharacterClickListener {
 
     }
 
+    lateinit var viewModel : HomeViewModel
+    private val retrofitService = RetroFitService.getInstance()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        viewModel = ViewModelProvider(this,HomeViewModelFactory(MainRepository(retrofitService))).get()
+        HomeViewModel::class.java
 
 
         val recyclerView: RecyclerView = binding.ola
