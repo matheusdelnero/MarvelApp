@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,9 +19,6 @@ import com.example.myapplication.databinding.FragmentHomeBinding
 class HomeFragment : Fragment(), CharacterClickListener {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onClick(character: Character) {
@@ -74,7 +72,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
         charList.add(char2)
         charList.add(char2)
         charList.add(char2)
-        charList.add(char2)
+        charList.add(char5)
 
     }
 
@@ -89,22 +87,11 @@ class HomeFragment : Fragment(), CharacterClickListener {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         viewModel = ViewModelProvider(this,HomeViewModelFactory(MainRepository(retrofitService))).get()
         HomeViewModel::class.java
 
 
-        val recyclerView: RecyclerView = binding.ola
-        val meuContexto = this.context
-        val home = this
-
-
         populateCharacters()
-
-
-
-
-
 
         return root
     }
@@ -123,13 +110,21 @@ class HomeFragment : Fragment(), CharacterClickListener {
         }
 
 
-        //Observando LiveData
+        //Observando LiveDatas
         viewModel.liveList.observe(this, Observer { chars ->
             Log.i("ola","tchau")
             val adapter = CardAdapter(charList,home )
             adapter.setCharList(chars)
 
         })
+        viewModel.errorMessage.observe(this, Observer { message ->
+            Toast.makeText(meuContexto,message,Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //viewModel.getAllChars()
     }
 
     override fun onDestroyView() {

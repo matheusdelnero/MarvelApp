@@ -4,7 +4,8 @@ var charList = mutableListOf<Character>()
 
 var favoriteList = mutableListOf<Character>()
 
-val CHAR_ID_EXTRA = "charExtra"
+const val CHAR_ID_EXTRA = "charExtra"
+
 
 data class Character (
         val id: Int,
