@@ -2,10 +2,12 @@ package com.example.myapplication.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
@@ -93,22 +95,41 @@ class HomeFragment : Fragment(), CharacterClickListener {
 
 
         val recyclerView: RecyclerView = binding.ola
-
         val meuContexto = this.context
-
         val home = this
+
 
         populateCharacters()
 
+
+
+
+
+
+        return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val recyclerView: RecyclerView = binding.ola
+        val meuContexto = this.context
+        val home = this
+
+
+        //Aplicando Adapter e Layout do RecyclerView
         recyclerView.apply {
             layoutManager = GridLayoutManager(meuContexto,2)
             adapter = CardAdapter(charList,home )
         }
 
 
+        //Observando LiveData
+        viewModel.liveList.observe(this, Observer { chars ->
+            Log.i("ola","tchau")
+            val adapter = CardAdapter(charList,home )
+            adapter.setCharList(chars)
 
-
-        return root
+        })
     }
 
     override fun onDestroyView() {

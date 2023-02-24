@@ -19,5 +19,12 @@ class CardAdapter(private val characters: List<Character>,private val clickListe
         holder.bindChar(characters[position])
     }
 
+    private var heroes = mutableListOf<Character>()
+    fun setCharList(chars: List<Character>) {
+        this.heroes = chars.toMutableList()
+        notifyDataSetChanged()
+
+    }
+
 
 }
