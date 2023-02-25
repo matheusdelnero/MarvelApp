@@ -101,6 +101,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
         val recyclerView: RecyclerView = binding.ola
         val meuContexto = this.context
         val home = this
+        val recycler = binding.ola
 
 
         //Aplicando Adapter e Layout do RecyclerView

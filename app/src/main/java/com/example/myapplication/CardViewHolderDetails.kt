@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.CardCharacterFavoritesBinding
-import com.example.myapplication.databinding.CardCharacterHomeBinding
 
 class CardViewHolderDetails(private val cardCharacterFavoritesBinding: CardCharacterFavoritesBinding): RecyclerView.ViewHolder(cardCharacterFavoritesBinding.root) {
 
@@ -10,7 +9,7 @@ class CardViewHolderDetails(private val cardCharacterFavoritesBinding: CardChara
 
 
     fun bindChar(char: Character){
-        cardCharacterFavoritesBinding.cardImageView.setImageResource(char.imageUrl)
+        cardCharacterFavoritesBinding.cardImageView.setImageResource(char.thumbnail)
         cardCharacterFavoritesBinding.cardTextView.text = char.name
 
 

@@ -21,11 +21,8 @@ class HomeViewModel constructor(private val repository: MainRepository) : ViewMo
 
     fun getAllChars(){
         val request = repository.getAllChars()
-        request.enqueue(object : Callback<List<com.example.myapplication.Character>>{
-            override fun onResponse(
-                call: Call<List<Character>>,
-                response: Response<List<Character>>
-            ) {
+        request.enqueue(object : Callback<List<Character>>{
+            override fun onResponse(call: Call<List<Character>>, response: Response<List<Character>>) {
                 liveList.postValue(response.body())
             }
 

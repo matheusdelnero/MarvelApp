@@ -9,7 +9,7 @@ class CardViewHolder(private val cardCharacterHomeBinding: CardCharacterHomeBind
 
 
     fun bindChar(char: Character){
-        cardCharacterHomeBinding.cardImageView.setImageResource(char.imageUrl)
+        cardCharacterHomeBinding.cardImageView.setImageResource(char.thumbnail)
         cardCharacterHomeBinding.cardTextView.text = char.name
 
         cardCharacterHomeBinding.card.setOnClickListener{

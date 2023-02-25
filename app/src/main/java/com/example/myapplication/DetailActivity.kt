@@ -19,7 +19,7 @@ class DetailActivity : AppCompatActivity() {
         val char = charFromID(charID)
         if (char != null)
         {
-            binding.detailsImageView.setImageResource(char.imageUrl)
+            binding.detailsImageView.setImageResource(char.thumbnail)
             binding.detailsTextView1.text = char.name
             binding.detailsTextView2.text = char.description
             binding.favoriteButton.setOnClickListener {
