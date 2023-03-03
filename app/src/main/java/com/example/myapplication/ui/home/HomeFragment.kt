@@ -78,7 +78,6 @@ class HomeFragment : Fragment(), CharacterClickListener {
                             //val characters = response.body()?.data?.results
                             //viewModel.liveList.value = characters
 
-
                         }
                     }
                 }
