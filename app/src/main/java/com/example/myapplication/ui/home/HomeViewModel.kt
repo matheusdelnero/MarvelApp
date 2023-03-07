@@ -16,7 +16,7 @@ class HomeViewModel constructor(private val repository: MainRepository) : ViewMo
     }
     val text: LiveData<String> = _text
 
-    val liveList = MutableLiveData<List<Character>>()
+    var liveList = MutableLiveData<List<Character>>()
     val errorMessage = MutableLiveData<String>()
 
     fun getAllChars(){

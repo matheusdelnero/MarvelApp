@@ -13,7 +13,7 @@ class CardViewHolder(private val cardCharacterHomeBinding: CardCharacterHomeBind
 
     fun bindChar(char: Character){
         //Glide.with(homeFragment)
-        //    .load(char.thumbnail.path)
+        //    .load(char.thumbnail.path + "." + char.thumbnail.extension)
         //    .into(cardCharacterHomeBinding.cardImageView)
         //cardCharacterHomeBinding.cardImageView.setImageResource(char.thumbnail.path)
         cardCharacterHomeBinding.cardTextView.text = char.name

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -14,10 +15,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentHomeBinding
+import kotlinx.coroutines.GlobalScope.coroutineContext
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.security.MessageDigest
+import kotlin.coroutines.coroutineContext
 
 class HomeFragment : Fragment(), CharacterClickListener {
     private var _binding: FragmentHomeBinding? = null
@@ -46,7 +52,6 @@ class HomeFragment : Fragment(), CharacterClickListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView: RecyclerView = binding.ola
         val meuContexto = this.context
         val home = this
@@ -54,6 +59,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
 
 //Implementação API MARVEL
 
+        suspend fun getHeroes(){
         fun String.md5(): String {
             val bytes = MessageDigest.getInstance("MD5").digest(this.toByteArray())
             return bytes.joinToString("") { "%02x".format(it) }
@@ -63,6 +69,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
         val apiKey = "4175da63a56bfb94ea924a591a50c0e1"
         val privateKey = "938fdde7049dbff0a97bee8332937787036be2a8"
         val hash = (ts.toString() + privateKey + apiKey).md5()
+
 
         val call = marvelRetroFitService.service.getCharacters(apiKey, hash, ts)
         call.enqueue(object : Callback<MarvelResponse> {
@@ -86,12 +93,15 @@ class HomeFragment : Fragment(), CharacterClickListener {
             override fun onFailure(call: Call<MarvelResponse>, t: Throwable) {
                 t.printStackTrace()
             }
-        })
+        })}
+
+runBlocking {launch {   getHeroes() }}
 
 
 
-        val livedata = viewModel.liveList
 
+
+        val livelist = viewModel.liveList
         //Aplicando Adapter e Layout do RecyclerView
         recyclerView.apply {
             layoutManager = GridLayoutManager(meuContexto,2)
@@ -110,14 +120,16 @@ class HomeFragment : Fragment(), CharacterClickListener {
             Toast.makeText(meuContexto,message,Toast.LENGTH_SHORT).show()
         })
 
+
+
+
+
+
+
+
     }
 
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
 }
