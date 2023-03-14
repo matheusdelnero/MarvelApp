@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.CardCharacterHomeBinding
 import com.example.myapplication.ui.home.HomeFragment
@@ -12,10 +13,11 @@ class CardViewHolder(private val cardCharacterHomeBinding: CardCharacterHomeBind
     val homeFragment = HomeFragment()
 
     fun bindChar(char: Character){
-        //Glide.with(homeFragment)
-        //    .load(char.thumbnail.path + "." + char.thumbnail.extension)
-        //    .into(cardCharacterHomeBinding.cardImageView)
+       // Glide.with(homeFragment)
+            //.load(char.thumbnail.path + "." + char.thumbnail.extension)
+            //.into(cardCharacterHomeBinding.cardImageView)
         //cardCharacterHomeBinding.cardImageView.setImageResource(char.thumbnail.path)
+        //cardCharacterHomeBinding.cardImageView.load(char.thumbnail.path + "." + char.thumbnail.extension)
         cardCharacterHomeBinding.cardTextView.text = char.name
 
         cardCharacterHomeBinding.card.setOnClickListener{

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -15,15 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentHomeBinding
-import kotlinx.coroutines.GlobalScope.coroutineContext
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.security.MessageDigest
-import kotlin.coroutines.coroutineContext
+
 
 class HomeFragment : Fragment(), CharacterClickListener {
     private var _binding: FragmentHomeBinding? = null
@@ -36,7 +29,6 @@ class HomeFragment : Fragment(), CharacterClickListener {
     }
 
     lateinit var viewModel : HomeViewModel
-    private val retrofitService = RetroFitService.getInstance()
 
 
     override fun onCreateView(
@@ -46,7 +38,7 @@ class HomeFragment : Fragment(), CharacterClickListener {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        viewModel = ViewModelProvider(this,HomeViewModelFactory(MainRepository(retrofitService))).get()
+        viewModel = ViewModelProvider(this,HomeViewModelFactory(MainRepository(MarvelRetroFitService()))).get()
         HomeViewModel::class.java
         return root
     }
@@ -57,45 +49,10 @@ class HomeFragment : Fragment(), CharacterClickListener {
         val home = this
         val marvelRetroFitService = MarvelRetroFitService()
 
-//Implementação API MARVEL
-
-        suspend fun getHeroes(){
-        fun String.md5(): String {
-            val bytes = MessageDigest.getInstance("MD5").digest(this.toByteArray())
-            return bytes.joinToString("") { "%02x".format(it) }
-        }
-
-        val ts = System.currentTimeMillis() / 1000
-        val apiKey = "4175da63a56bfb94ea924a591a50c0e1"
-        val privateKey = "938fdde7049dbff0a97bee8332937787036be2a8"
-        val hash = (ts.toString() + privateKey + apiKey).md5()
 
 
-        val call = marvelRetroFitService.service.getCharacters(apiKey, hash, ts)
-        call.enqueue(object : Callback<MarvelResponse> {
-            override fun onResponse(call: Call<MarvelResponse>, response: Response<MarvelResponse>) {
-                if (response.isSuccessful) {
-                    charList = response.body()?.data?.results as MutableList<Character>
-                    if (charList != null) {
-                        for (character in charList) {
-                            val name = character.name
-                            val description = character.description
-                            val imageUrl = character.thumbnail.path + "." + character.thumbnail.extension
-                            //faça o que precisar com as informações dos personagens
-                            //val characters = response.body()?.data?.results
-                            //viewModel.liveList.value = characters
 
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MarvelResponse>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })}
-
-runBlocking {launch {   getHeroes() }}
+runBlocking {launch {   viewModel.getHeroes() }}
 
 
 
@@ -119,17 +76,6 @@ runBlocking {launch {   getHeroes() }}
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(meuContexto,message,Toast.LENGTH_SHORT).show()
         })
-
-
-
-
-
-
-
-
+        
     }
-
-
-
-
 }

@@ -1,6 +1,6 @@
 package com.example.myapplication
 
-class MainRepository constructor(private val retroFitService: RetroFitService){
+class MainRepository constructor(private val marvelRetroFitService: MarvelRetroFitService){
 
-    fun getAllChars() = retroFitService.getAllChars()
+    fun getAllChars() = marvelRetroFitService.service
 }

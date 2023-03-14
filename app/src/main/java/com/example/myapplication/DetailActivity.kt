@@ -56,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-    val viewmodel = HomeViewModel(MainRepository(RetroFitService.getInstance()))
+    val viewmodel = HomeViewModel(MainRepository(MarvelRetroFitService()))
     val liveList = viewmodel.liveList
 
     private fun charFromID(charID: Int): Character? {
